@@ -28,17 +28,19 @@ namespace Login
                 Thread.Sleep(3000);
                 Waiting();
             });
+           
         }
 
         private void Waiting()
         {
-           
+            this.pictureBox1.Visible = false;
             if (this.cboSex.Text.Trim() == "显示所有")
             {
                 this.cboSex.Text = "";
             }
+            this.lstShow.Items.Clear();
             string strSQL = "select * from Admin where (LoginId=@LoginId or len(@name)=0)and (ASex=@Sex or len(@Sex)=0)";
-            using (IDataReader reader = helper.ExecuteReader(strSQL, CommandType.StoredProcedure,
+            using (IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text,
                   new SqlParameter("@LoginId", this.txtUserName.Text.Trim()),
                    new SqlParameter("@sex", this.cboSex.Text.Trim())))
             {
@@ -55,12 +57,27 @@ namespace Login
                 }
                 reader.Close();
             }
-            this.pictureBox1.Visible = false;
+            
         }
 
         private void FrmSelectUser_Load(object sender, EventArgs e)
         {
             this.pictureBox1.Visible = false;
+        }
+
+        private void FrmSelectUser_Load_1(object sender, EventArgs e)
+        {
+            this.pictureBox1.Visible = false;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
