@@ -69,5 +69,15 @@ namespace Login.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap dd054ebb4eaa706dff5a893149a1fd87 {
+            get {
+                object obj = ResourceManager.GetObject("dd054ebb4eaa706dff5a893149a1fd87", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
