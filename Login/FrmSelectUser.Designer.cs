@@ -174,7 +174,7 @@
             this.Controls.Add(this.cboSex);
             this.Name = "FrmSelectUser";
             this.Text = "查询用户信息";
-            this.Load += new System.EventHandler(this.FrmSelectUser_Load_1);
+            this.Load += new System.EventHandler(this._Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

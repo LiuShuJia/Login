@@ -19,7 +19,15 @@ namespace Login
         {
             InitializeComponent();
         }
+        /// <summary>
+        /// 方法DBHelper实例化
+        /// </summary>
         private DBHelper helper = new DBHelper();
+        /// <summary>
+        /// 查询事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnQuery_Click(object sender, EventArgs e)
         {
 
@@ -30,7 +38,9 @@ namespace Login
             });
            
         }
-
+        /// <summary>
+        /// 查询方法
+        /// </summary>
         private void Waiting()
         {
             this.pictureBox1.Visible = false;
@@ -40,10 +50,9 @@ namespace Login
             }
             this.lstShow.Items.Clear();
             string strSQL = "select * from Admin where (LoginId=@LoginId or len(@name)=0)and (ASex=@Sex or len(@Sex)=0)";
-            using (IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text,
+            IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text,
                   new SqlParameter("@LoginId", this.txtUserName.Text.Trim()),
-                   new SqlParameter("@sex", this.cboSex.Text.Trim())))
-            {
+                   new SqlParameter("@sex", this.cboSex.Text.Trim()));
                 while (reader.Read())
                 {
                     ListViewItem lst = new ListViewItem();
@@ -56,10 +65,14 @@ namespace Login
                     this.lstShow.Items.Add(lst);
                 }
                 reader.Close();
-            }
+            
             
         }
-
+        /// <summary>
+        /// 是否显示等待界面
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmSelectUser_Load(object sender, EventArgs e)
         {
             this.pictureBox1.Visible = false;
@@ -74,10 +87,18 @@ namespace Login
         {
 
         }
-
+        /// <summary>
+        /// 退出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+          private void _Load_1(object sender, EventArgs e)
+        {
         }
     }
 }

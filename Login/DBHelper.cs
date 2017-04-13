@@ -9,8 +9,14 @@ using System.Data;
 
 namespace Login
 {
+    /// <summary>
+    /// 数据库查询方法
+    /// </summary>
    public  class DBHelper
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public DBHelper()
         {
             con = new SqlConnection(strCon);
@@ -22,7 +28,13 @@ namespace Login
         private string strCon = ConfigurationManager.ConnectionStrings["myCon"].ConnectionString;
         private IDbConnection con = null;
         private IDbCommand cmd = null;
-
+        /// <summary>
+        /// 查询影响的行数
+        /// </summary>
+        /// <param name="strSQL">SQL语句</param>
+        /// <param name="commandtype">SQL语句类型</param>
+        /// <param name="parameter">参数数组</param>
+        /// <returns>影响的行数</returns>
         public int ExecuteNonQuery(string strSQL, CommandType commandtype = CommandType.Text, params IDataParameter[] parameter)
         {
             int rows = 0;
@@ -49,6 +61,13 @@ namespace Login
             }
             return rows;
         }
+        /// <summary>
+        /// 查询影响的行数（线程）
+        /// </summary>
+        /// <param name="strSQL">SQL语句</param>
+        /// <param name="commandtype">SQL语句类型</param>
+        /// <param name="parameter">参数数组</param>
+        /// <returns>影响的行数</returns>
         public Task<int> ExecuteNonQueryAsync(string strSQL, CommandType commandtype = CommandType.Text, params IDataParameter[] parameter)
         {
             return Task<int>.Run(() =>
@@ -56,6 +75,13 @@ namespace Login
                 return ExecuteNonQuery(strSQL, commandtype, parameter);
             });
         }
+        /// <summary>
+        /// 访问数据库，查询数据（线程）
+        /// </summary>
+        /// <param name="strSQL">SQL语句</param>
+        /// <param name="commandtype">SQL语句类型</param>
+        /// <param name="parameter">参数数组</param>
+        /// <returns>查询的数据</returns>
         public object ExecuteScalar(string strSQL, CommandType commandtype = CommandType.Text, params IDataParameter[] parameter)
         {
             object rows = null;
@@ -90,7 +116,13 @@ namespace Login
             });
 
         }
-
+        /// <summary>
+        /// 访问数据库，读取数据
+        /// </summary>
+        /// <param name="strSQL">SQL语句</param>
+        /// <param name="commandtype">SQL语句类型</param>
+        /// <param name="parameter">参数数组</param>
+        /// <returns>读取的数据</returns>
         public IDataReader ExecuteReader(string strSQL, CommandType commandtype = CommandType.Text, params IDataParameter[] parameter)
         {
             IDataReader reader = null;
@@ -112,6 +144,13 @@ namespace Login
             }
             return reader;
         }
+        /// <summary>
+        /// 访问数据库，读取数据（线程）
+        /// </summary>
+        /// <param name="strSQL">SQL语句</param>
+        /// <param name="commandtype">SQL语句类型</param>
+        /// <param name="parameter">参数数组</param>
+        /// <returns>读取的数据</returns>
         public Task<IDataReader> ExecuteReaderAsync(string strSQL, CommandType commandtype = CommandType.Text, params IDataParameter[] parameter)
         {
             return Task<IDataReader>.Run(() =>
