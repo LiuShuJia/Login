@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Login
 {
@@ -21,6 +21,7 @@ namespace Login
         private DBHelper helper = new DBHelper();
         private void btnEnter_Click(object sender, EventArgs e)
         {
+            bool fwid = false;
             bool fusername = false;
             bool fkey = false;
             bool fName = false;
@@ -28,56 +29,34 @@ namespace Login
             bool fIDcard = false;
             bool fphone = false;
 
-            if (this.txtUserName.Text.Trim() == null)
-            {
-                this.errortext.SetError(this.txtUserName, "用户名不能为空！");
-                fusername = true;
-                return;
-            }
+             fwid = Isnull(this.cbowid.Text.Trim());
+             fusername = Isnull(this.txtUserName.Text.Trim());
+             fkey= Isnull(this.txtpassword .Text.Trim());
+             fName= Isnull(this.txtName.Text.Trim());
+             fsex = Issex(this.cbosex.Text.Trim());
+             fIDcard = IsId (this.txtIDcard .Text.Trim());
+             fphone = Isphone(this.txtphone .Text.Trim());
+
 
             string username = this.txtUserName.Text.Trim();
-            if (this.txtpassword.Text.Trim() == null)
-            {
-                this.errortext.SetError(this.txtpassword, "请输入密码！");
-                fkey = true;
-                return;
-            }
+       
             string key = this.txtpassword.Text.Trim();
 
-            if (this.txtName.Text.Trim() == null)
-            {
-                this.errortext.SetError(this.txtpassword, "真实姓名不能为空！");
-                fName = true;
-                return;
-            }
             string name = this.txtName.Text.Trim();
 
-            if (this.cbosex.Text.Trim() == null)
-            {
-                this.errortext.SetError(this.cbosex, "请选择性别！");
-                fsex = true;
-                return;
-            }
             string sex = this.cbosex.Text.Trim();
-            if (this.txtIDcard.Text.Trim() != "^[1-9][0-9]{15}[0-9|X|x]$")
-            {
-                this.errortext.SetError(this.txtIDcard, "身份证格式不正确，请保证为18位数字或者17位数字后面加个x/X");
-                fIDcard = true;
-                return;
-            }
+           
             string IDcard = this.txtIDcard.Text.Trim();
 
-            if (this.txtphone.Text.Trim() != "^1[0-9]{10}$")
-            {
-                this.errortext.SetError(this.txtIDcard, "电话号码格式不正确,请保证为1开头的十一位数字");
-                fphone = true;
-                return;
-            }
+           
             string phone = this.txtphone.Text.Trim();
-            string strSQL = @"insert into Admin (LoginId,LoginPwd,Aname,Asex,AIdcard,Aphone)values(@LoginId,@LoginPwd,@name,@sex,@Idcard,@phone)";
-            if (fusername &&fkey &&fName &&fsex &&fIDcard &&fphone)//如果验证都通过，即可进入添加
+
+            int wid = Convert.ToInt32(this .cbowid.Text .Trim ());
+            string strSQL = @"insert into Admin (WID,LoginId,LoginPwd,Aname,Asex,ACardID,Aphone)values(@wid,@LoginId,@LoginPwd,@name,@sex,@Idcard,@phone)";
+            if (fwid&&fusername && fkey && fName && fsex && fIDcard && fphone)//如果验证都通过，即可进入添加
             {
                 int row = helper.ExecuteNonQuery(strSQL, CommandType.Text,
+                new SqlParameter("@wid",wid.ToString ()),
                 new SqlParameter("@LoginId", username),
                 new SqlParameter("@LoginPwd", key),
                 new SqlParameter("@name", name),
@@ -94,8 +73,133 @@ namespace Login
                 {
                     MessageBox.Show("添加失败");
                 }
+           } 
+            else
+            {
+                MessageBox.Show("请先完善信息");
             }
-
         }
+        private void cbowid_Enter(object sender, EventArgs e)
+        {
+            while (this.txtUserName.Text.Trim() == "") //判断它的上一个控件是否为空，依此类推
+            {
+                MessageBox.Show("用户名不能为空！");
+                this.txtUserName.Focus();
+                return;
+            }
+        }
+        private void txtpassword_Enter(object sender, EventArgs e)
+        {
+            while (this.cbowid.Text.Trim() == "")
+            {
+                MessageBox.Show("请选择仓库编号");
+                return;
+            }
+        }
+
+        private void txtName_Enter(object sender, EventArgs e)
+        {
+            while (this.txtpassword.Text.Trim() == "")
+            {
+                MessageBox .Show ("请输入密码！");
+                this.txtpassword.Focus();
+                return;
+            }
+        }
+
+        private void cbosex_Enter(object sender, EventArgs e)
+        {
+            while (this.txtName.Text.Trim() == "")
+            {
+                MessageBox.Show("真实姓名不能为空！");
+                this.txtName.Focus();
+                return;
+            }
+        }
+
+        private void txtIDcard_Enter(object sender, EventArgs e)
+        {
+            while (this.cbosex.Text.Trim() != "男"&& this.cbosex.Text.Trim() != "女")
+            {
+                MessageBox.Show("请选择性别！");
+                this.cbosex.Focus();
+                return;
+            }
+        }
+
+        private void txtphone_Enter(object sender, EventArgs e)//如果身份证格式不正确，在进入手机号填写时就警告
+        {
+            if ((Regex.IsMatch(this.txtIDcard .Text.Trim(), @"^[1-9][0-9]{16}[0-9Xx]$"))==false)
+            {
+                MessageBox.Show("身份证格式不正确，请保证为18位数字或者17位数字后面加个x/X");
+                this.txtIDcard.Clear();
+                this.txtIDcard.Focus();
+                return;
+            }
+        }
+
+        public bool Isnull(string s)
+        {
+            bool f = false;
+            if (s!="")
+            {
+                f = true;
+            }
+            return f;
+        }
+        public bool IsId(string s)
+        {
+            bool f = false;
+            if ((Regex.IsMatch(s, @"^[1-9][0-9]{16}[0-9Xx]$")) == true )
+            {
+               f= true;              
+            }
+            return f;
+        }  //用正则写身份证和号码验证
+        public bool Isphone(string s)
+        {
+            bool f = false;
+            if ((Regex.IsMatch(s, @"^1[0-9]{10}$")) ==true)
+            {
+                f = true;
+            }
+            return f;
+        }
+        public bool Issex(string s)
+        {
+            bool f = false;
+            if ((Regex.IsMatch(s, @"^[男|女]$")) == true)//判断性别是否为男女，是就返回true
+            {
+                f = true;
+            }
+            return f;
+        }
+
+        private void FrmAddUser_Load(object sender, EventArgs e)
+        {
+           
+            string strSQL = @"select wid from Warehouse";
+
+            using (IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text))
+            {
+                while (reader.Read())
+                {
+                    int wid= reader.GetInt32(reader.GetOrdinal("wid"));
+                    this.cbowid.Items.Add(wid);
+                }
+                reader.Close();
+            }
+        }
+
+        private void txtphone_Leave(object sender, EventArgs e)
+        {
+            if ((Regex.IsMatch(this.txtphone.Text.Trim(), @"^1[0-9]{10}$")) == false)
+            {
+                MessageBox.Show("手机号应为1开头的11位数字");
+                this.txtphone.Clear();
+                this.txtphone.Focus();
+            }
+        }
+
     }
 }

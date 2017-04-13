@@ -34,10 +34,12 @@
             this.btnEnter = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnsee = new System.Windows.Forms.Button();
             this.erroewarm = new System.Windows.Forms.ErrorProvider(this.components);
             this.label3 = new System.Windows.Forms.Label();
+            this.picsee = new System.Windows.Forms.PictureBox();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.erroewarm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picsee)).BeginInit();
             this.SuspendLayout();
             // 
             // txtKey
@@ -45,19 +47,21 @@
             this.txtKey.Location = new System.Drawing.Point(122, 141);
             this.txtKey.Name = "txtKey";
             this.txtKey.PasswordChar = '*';
-            this.txtKey.Size = new System.Drawing.Size(100, 21);
+            this.txtKey.Size = new System.Drawing.Size(109, 21);
             this.txtKey.TabIndex = 9;
+            this.txtKey.Enter += new System.EventHandler(this.txtKey_Enter);
+            this.txtKey.Leave += new System.EventHandler(this.txtKey_Leave);
             // 
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(122, 90);
             this.txtUserName.Name = "txtUserName";
-            this.txtUserName.Size = new System.Drawing.Size(100, 21);
+            this.txtUserName.Size = new System.Drawing.Size(109, 21);
             this.txtUserName.TabIndex = 8;
             // 
             // btnEnter
             // 
-            this.btnEnter.Location = new System.Drawing.Point(97, 210);
+            this.btnEnter.Location = new System.Drawing.Point(41, 201);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 23);
             this.btnEnter.TabIndex = 7;
@@ -83,17 +87,6 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "请输入用户名：";
             // 
-            // btnsee
-            // 
-            this.btnsee.Image = global::Login.Properties.Resources.dd054ebb4eaa706dff5a893149a1fd87;
-            this.btnsee.Location = new System.Drawing.Point(228, 133);
-            this.btnsee.Name = "btnsee";
-            this.btnsee.Size = new System.Drawing.Size(50, 38);
-            this.btnsee.TabIndex = 10;
-            this.btnsee.UseVisualStyleBackColor = true;
-            this.btnsee.Click += new System.EventHandler(this.button1_Click);
-            this.btnsee.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnsee_MouseDown);
-            // 
             // erroewarm
             // 
             this.erroewarm.ContainerControl = this;
@@ -108,21 +101,48 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "用户登录";
             // 
+            // picsee
+            // 
+            this.picsee.Image = global::Login.Properties.Resources.dd054ebb4eaa706dff5a893149a1fd87;
+            this.picsee.Location = new System.Drawing.Point(237, 141);
+            this.picsee.Name = "picsee";
+            this.picsee.Size = new System.Drawing.Size(27, 21);
+            this.picsee.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picsee.TabIndex = 12;
+            this.picsee.TabStop = false;
+            this.picsee.Click += new System.EventHandler(this.picsee_Click);
+            this.picsee.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picsee_MouseDown);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(156, 201);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.TabIndex = 13;
+            this.btnExit.Text = "退出";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click_1);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 256);
+            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.picsee);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnsee);
             this.Controls.Add(this.txtKey);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.btnEnter);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
             this.Name = "FrmLogin";
             this.Text = "登录界面";
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             ((System.ComponentModel.ISupportInitialize)(this.erroewarm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picsee)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,9 +155,10 @@
         private System.Windows.Forms.Button btnEnter;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnsee;
         private System.Windows.Forms.ErrorProvider erroewarm;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox picsee;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 
