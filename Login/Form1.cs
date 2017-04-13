@@ -60,7 +60,7 @@ namespace Login
         }
         private void picsee_Click(object sender, EventArgs e)
         {
-            if (this.txtKey.PasswordChar == '*')
+            if (this.txtKey.PasswordChar == '*')//如果为*，则变成字符串，反之也是
             {
                 this.txtKey.PasswordChar = (char)0;
             }
@@ -72,7 +72,7 @@ namespace Login
 
         private void picsee_MouseDown(object sender, MouseEventArgs e)
         {
-            this.txtKey.PasswordChar = (char)0;
+            this.txtKey.PasswordChar = (char)0;//鼠标离开变成*
         }
         private void txtKey_Leave(object sender, EventArgs e)
         {
@@ -100,7 +100,7 @@ namespace Login
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            this.txtUserName.Focus();
+            this.txtUserName.Focus();//开始把焦点给txtUserName
         }
     }
 }

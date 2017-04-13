@@ -138,7 +138,7 @@ namespace Login
             }
         }
 
-        public bool Isnull(string s)
+        public bool Isnull(string s)//定义一个方法，看控件是否为空
         {
             bool f = false;
             if (s!="")
@@ -178,7 +178,7 @@ namespace Login
         private void FrmAddUser_Load(object sender, EventArgs e)
         {
            
-            string strSQL = @"select wid from Warehouse";
+            string strSQL = @"select wid from Warehouse";//把Warehouse表中的wid显示出来供用户选择，以防因外键约束出现添加异常
 
             using (IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text))
             {
@@ -193,7 +193,7 @@ namespace Login
 
         private void txtphone_Leave(object sender, EventArgs e)
         {
-            if ((Regex.IsMatch(this.txtphone.Text.Trim(), @"^1[0-9]{10}$")) == false)
+            if ((Regex.IsMatch(this.txtphone.Text.Trim(), @"^1[0-9]{10}$")) == false)//如果手机号不为1开头的十一位数，则警告
             {
                 MessageBox.Show("手机号应为1开头的11位数字");
                 this.txtphone.Clear();
@@ -201,5 +201,9 @@ namespace Login
             }
         }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
