@@ -47,6 +47,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(199, 21);
             this.txtName.TabIndex = 53;
+            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // lblClassGuid
             // 
@@ -82,6 +83,7 @@
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(199, 21);
             this.txtPhone.TabIndex = 46;
+            this.txtPhone.Leave += new System.EventHandler(this.txtPhone_Leave);
             // 
             // txtLoginId
             // 
@@ -89,6 +91,7 @@
             this.txtLoginId.Name = "txtLoginId";
             this.txtLoginId.Size = new System.Drawing.Size(199, 21);
             this.txtLoginId.TabIndex = 45;
+            this.txtLoginId.Leave += new System.EventHandler(this.txtLoginId_Leave);
             // 
             // txtCardId
             // 
@@ -96,6 +99,8 @@
             this.txtCardId.Name = "txtCardId";
             this.txtCardId.Size = new System.Drawing.Size(199, 21);
             this.txtCardId.TabIndex = 44;
+            this.txtCardId.Enter += new System.EventHandler(this.txtCardId_Enter);
+            this.txtCardId.Leave += new System.EventHandler(this.txtCardId_Leave);
             // 
             // lblName
             // 
@@ -126,11 +131,16 @@
             // 
             // cmbSex
             // 
+            this.cmbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSex.FormattingEnabled = true;
+            this.cmbSex.Items.AddRange(new object[] {
+            "男",
+            "女"});
             this.cmbSex.Location = new System.Drawing.Point(161, 241);
             this.cmbSex.Name = "cmbSex";
             this.cmbSex.Size = new System.Drawing.Size(199, 20);
             this.cmbSex.TabIndex = 54;
+            this.cmbSex.Leave += new System.EventHandler(this.cmbSex_Leave);
             // 
             // FrmModifyUser
             // 

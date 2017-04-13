@@ -36,7 +36,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.lblStudentNo = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
             this.btnCertain = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -113,14 +113,14 @@
             this.label4.TabIndex = 98;
             this.label4.Text = "姓名：";
             // 
-            // lblStudentNo
+            // lbl1
             // 
-            this.lblStudentNo.AutoSize = true;
-            this.lblStudentNo.Location = new System.Drawing.Point(108, 38);
-            this.lblStudentNo.Name = "lblStudentNo";
-            this.lblStudentNo.Size = new System.Drawing.Size(77, 12);
-            this.lblStudentNo.TabIndex = 97;
-            this.lblStudentNo.Text = "身份证号码：";
+            this.lbl1.AutoSize = true;
+            this.lbl1.Location = new System.Drawing.Point(108, 38);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(77, 12);
+            this.lbl1.TabIndex = 97;
+            this.lbl1.Text = "身份证号码：";
             // 
             // lblUser
             // 
@@ -154,7 +154,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblStudentNo);
+            this.Controls.Add(this.lbl1);
             this.Controls.Add(this.lblUser);
             this.Controls.Add(this.btnCertain);
             this.Name = "FrmDeleteUser";
@@ -175,7 +175,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblStudentNo;
+        private System.Windows.Forms.Label lbl1;
         private System.Windows.Forms.Label lblUser;
         private System.Windows.Forms.Button btnCertain;
     }

@@ -24,21 +24,13 @@ namespace Login
             InitializeComponent();
         }
         private string ACardID;
-        private string strCon = @"server=.\SQL2014;database=GTGDB;uid=sa;password=123;";
+        private DBHelper helper = new DBHelper();
+       
         private void btnCertain_Click(object sender, EventArgs e)
         {
-            ACardID = this.lblCardID.Text;
-
             string strSQL = "Delete from Admin where ACardID=@ACardID";
-
-            using (SqlConnection con = new SqlConnection(strCon))
-            {
-                SqlCommand cmd = new SqlCommand(strSQL, con);
-                cmd.Parameters.AddWithValue("@ACardID", ACardID);
-                con.Open();
-                int obj = cmd.ExecuteNonQuery();
-                con.Close();
-                if (obj > 0)
+            int rows = helper.ExecuteNonQuery(strSQL,CommandType.Text,new SqlParameter("@ACardID", this.lblCardID.Text));
+                if (rows > 0)
                 {
                     MessageBox.Show("操作成功！");
                     Close();
@@ -47,32 +39,21 @@ namespace Login
                 {
                     MessageBox.Show("操作失败！");
                 }
-            }
         }
 
         private void FrmDeleteUser_Load(object sender, EventArgs e)
         {
-            lblCardID.Text = ACardID;
-
-            string strSQL = "Select * from Admin where ACardID=@ACardID";
-
-            using (SqlConnection con = new SqlConnection(strCon))
+            string strSQL = "select ACardId,LoginId,AName,ASex,APhone from Admin where ACardId=@ACardId";
+            IDataReader reader = helper.ExecuteReader(strSQL, CommandType.Text, new SqlParameter("@ACardId", this.lblCardID.Text));
+            while (reader.Read())
             {
-                SqlCommand cmd = new SqlCommand(strSQL, con);
-                cmd.Parameters.AddWithValue("@ACardID", ACardID);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    lblCardID.Text = reader.GetString(reader.GetOrdinal("ACardID"));
-                    lblLoginID.Text = reader.GetString(reader.GetOrdinal("LoginId"));
-                    lblName.Text = reader.GetString(reader.GetOrdinal("AName"));
-                    lblSex.Text = reader.GetString(reader.GetOrdinal("Sex"));
-                    lblPhone.Text = reader.GetString(reader.GetOrdinal("APhone"));
-                }
-                reader.Close();
-                con.Close();
+                lblCardID.Text = reader.GetString(reader.GetOrdinal("ACardId"));
+                lblLoginID.Text = reader.GetString(reader.GetOrdinal("LoginId"));
+                lblName.Text = reader.GetString(reader.GetOrdinal("AName"));
+                lblSex.Text = reader.IsDBNull(reader.GetOrdinal("ASex"))?null: reader.GetString(reader.GetOrdinal("ASex"));
+                lblPhone.Text =reader.IsDBNull(reader.GetOrdinal("APhone"))?null: reader.GetString(reader.GetOrdinal("APhone"));
             }
+            reader.Close();
         }
     }
 }
